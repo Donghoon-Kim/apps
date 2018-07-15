@@ -1,10 +1,11 @@
 import axios from 'axios';
+import {TOKEN_KEY} from "../constants/common";
 
 const domain = 'http://localhost:8080';
 const contextPath = '';
 const domainContextPath = domain + contextPath;
 const headerConfigLoader = () => {
-    return {'authorization': localStorage.getItem('bookapp_token')};
+    return {'authorization': localStorage.getItem(TOKEN_KEY)};
 };
 
 export function getSearchApi() {

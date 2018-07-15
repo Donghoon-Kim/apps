@@ -1,3 +1,4 @@
+export const TOKEN_KEY = 'bookapp_token';
 
 export const exportOptionKey = (options, text) => {
     let filter = options.filter((item) => item.text === text);
