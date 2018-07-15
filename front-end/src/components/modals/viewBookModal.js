@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {errorCallback} from "../../constants/common";
 import { Button, Image, Header, Icon, Modal, Form , Divider, Table} from 'semantic-ui-react'
 import * as service from 'services/axios';
 
@@ -31,8 +32,8 @@ export default class ViewBookModal extends Component {
             .then((response) => {
                 alert('북마크되었습니다.');
                 this.props.handleViewBookModalClose();
-            }, (error)=>{
-                console.log(error);
+            }, (error) => {
+                errorCallback(error, null, this.props.history);
             })
     }
 
@@ -42,7 +43,7 @@ export default class ViewBookModal extends Component {
                 alert('삭제되었습니다.');
                 this.props.handleViewBookModalClose();
             }, (error) => {
-                alert(error.response.data.message);
+                errorCallback(error, null, this.props.history);
             })
     }
 

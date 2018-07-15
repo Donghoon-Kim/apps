@@ -5,6 +5,25 @@ export const exportOptionKey = (options, text) => {
     return filter.length === 0 ? '' : filter[0].key;
 }
 
+export const errorCallback = (error, message, history) => {
+    console.log(error);
+    if(error.response.status === 403){
+        alert("권한문제로 로그인 페이지로 이동합니다.");
+        logout();
+        history.push('/login-form');
+    }else{
+        if(message === null){
+            alert(error.response.data.message);
+        }else{
+            alert(message);
+        }
+    }
+}
+
+export const logout = () => {
+    localStorage.removeItem(TOKEN_KEY);
+}
+
 export const SEARCH_OPTIONS = [
     {key: 'all', text: '전체', value: 'all'},
     {key: 'isbn', text: 'isbn', value: 'isbn'},

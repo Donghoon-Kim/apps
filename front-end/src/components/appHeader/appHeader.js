@@ -1,7 +1,7 @@
 import React from 'react';
 import {Menu, Container} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import {TOKEN_KEY} from "../../constants/common";
+import {logout} from "../../constants/common";
 
 const AppHeader = () => {
     return (
@@ -16,8 +16,6 @@ const AppHeader = () => {
     )
 };
 
-const logout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-}
+
 
 export default AppHeader;

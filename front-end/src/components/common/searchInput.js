@@ -9,7 +9,7 @@ const SearchInput = (props) => {
 
     return (
         <div className='inputWrapper'>
-            <Input type='text' placeholder='Search...' action icon='search'>
+            <Input type='text' placeholder='Search...' action>
                 <Select compact options={props.options} defaultValue='전체' />
                 <input id='searchQueryInput'
                     placeholder='보고 싶은 책을 찾아보세요'

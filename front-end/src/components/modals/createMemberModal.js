@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Header, Icon, Modal, Form , Input} from 'semantic-ui-react'
 import * as memberController from 'services/memberController';
+import {errorCallback} from "../../constants/common";
 
 
 export default class CreateMemberModal extends Component {
@@ -24,8 +25,8 @@ export default class CreateMemberModal extends Component {
             .then((response) => {
                 alert(username + '님 회원가입이 완료되었습니다.');
                 this.props.handleCrateMemberModalClose();
-            },function(error){
-                alert(error.response.data.message);
+            }, (error) => {
+                errorCallback(error, null, this.props.history);
             });
     }
 

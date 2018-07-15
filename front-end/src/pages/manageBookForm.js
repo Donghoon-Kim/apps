@@ -4,7 +4,7 @@ import SearchInput from 'components/common/searchInput';
 import BookTable from 'components/book/bookTable';
 import * as service from 'services/axios';
 import ViewBookModal from 'components/modals/viewBookModal'
-import { SEARCH_OPTIONS, SORT_OPTIONS, exportOptionKey } from 'constants/common';
+import { SEARCH_OPTIONS, SORT_OPTIONS, exportOptionKey, errorCallback } from 'constants/common';
 
 export default class manageBookForm extends Component {
     constructor(props) {
@@ -82,13 +82,17 @@ export default class manageBookForm extends Component {
             .then((result) => {
                 this.setState({searchApis: result.data});
                 this.fetchAllBookApi();
-            })
+            }, (error) => {
+                errorCallback(error, null, this.props.history);
+            });
     }
 
     fetchQueryHistories = () => {
         service.getQueryhistory()
             .then((result) => {
                 this.setState({queryHistory: result.data});
+            }, (error) => {
+                errorCallback(error, null, this.props.history);
             });
     }
 
@@ -98,6 +102,8 @@ export default class manageBookForm extends Component {
                 let newHistories = Array.from(Object.create(this.state.queryHistory));
                 newHistories.push(result.data);
                 this.setState({queryHistory: newHistories});
+            }, (error) => {
+                errorCallback(error, null, this.props.history);
             });
     }
 
@@ -136,7 +142,7 @@ export default class manageBookForm extends Component {
 
                 this.setState({books: newBooks});
             }, (error) => {
-                alert(error.response.data.message);
+                errorCallback(error, null, this.props.history);
             });
 
     }

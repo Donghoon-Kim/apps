@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {errorCallback} from "../../constants/common";
 import { Button, Header, Icon, Modal, Form , Input, Divider} from 'semantic-ui-react'
 import * as service from 'services/axios';
 
@@ -44,7 +45,7 @@ export default class CreateBookModal extends Component {
                 alert("저장되었습니다.");
                 callback();
             }, (error) => {
-                alert(error.response.data.message);
+                errorCallback(error, null, this.props.history);
             });
     }
 
