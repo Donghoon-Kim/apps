@@ -89,7 +89,7 @@
     cd back-end && mvn clean install && mvn spring-boot:run
 
     // 프론트엔드 빌드/실행 스크립트
-    cd ../front-end && npm install && npm start
+    cd front-end && npm install && npm start
 
 ## Access point
 > http://localhost:3000
