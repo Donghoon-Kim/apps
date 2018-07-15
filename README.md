@@ -83,7 +83,7 @@
 > 프로젝트 루트(apps)폴더를 기준으로 다음 커맨드를 실행해주세요
 > 사용하는 포트는 8080번과 3000번 입니다.
 
-    cd backend-app && mvn clean install && mvn spring-boot:run
+    cd back-end && mvn clean install && mvn spring-boot:run
     cd ../front-end && npm install && npm start
 
 ## Access point
