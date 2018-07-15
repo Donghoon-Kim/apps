@@ -1,12 +1,13 @@
 export const TOKEN_KEY = 'bookapp_token';
 
+export const KOREAN_DATE_FORMAT = 'YYYY년 M월 D일 H시 m분 s초';
+
 export const exportOptionKey = (options, text) => {
     let filter = options.filter((item) => item.text === text);
     return filter.length === 0 ? '' : filter[0].key;
 }
 
 export const errorCallback = (error, message, history) => {
-    console.log(error);
     if(error.response.status === 403){
         alert("권한문제로 로그인 페이지로 이동합니다.");
         logout();
@@ -51,10 +52,12 @@ export const BOOK_TABLE_LABELS = [
 ];
 
 export const BOOK_MARK_TABLE_LABELS = [
-    {title: '고유번호'},
-    {title: '이미지'},
-    {title: '도서 제목'},
-    {title: '저자'},
+    {title: '북마크시간'},
+    {title: '책제목'},
+    {title: '내용'},
     {title: '가격'},
-    {title: '바로가기'},
+    {title: '저자'},
+    {title: '출판사'},
+    {title: '등록일'},
+    {title: 'isbn'},
 ];

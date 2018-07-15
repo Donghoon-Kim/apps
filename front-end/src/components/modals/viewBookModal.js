@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {errorCallback} from "../../constants/common";
 import { Button, Image, Header, Icon, Modal, Form , Divider, Table} from 'semantic-ui-react'
 import * as service from 'services/axios';
+import {KOREAN_DATE_FORMAT} from "../../constants/common"
+import moment from 'moment'
 
 const testBookImage = 'http://i1.daumcdn.net/img-contents/book/2010/155x225_v2.gif?moddttm=20160107070547';
 const imageLoader = (imageUrl) => {
@@ -21,10 +23,10 @@ export default class ViewBookModal extends Component {
                 title : book.title,
                 contents : book.contents,
                 price : book.price,
-                author : book.author,
+                author : book.authors.join(','),
                 publisher : book.publisher,
                 isbn : book.isbn,
-                regiDatetime : book.regiDatetime,
+                regiDatetime : book.datetime,
             }
         }
 
@@ -48,6 +50,8 @@ export default class ViewBookModal extends Component {
     }
 
     render(){
+        const datetimeMoment = moment(this.props.book.datetime);
+        const datetime = datetimeMoment.isValid() ? datetimeMoment.format(KOREAN_DATE_FORMAT) : '';
         return (
             <Modal
                 closeIcon size='large'
@@ -96,7 +100,7 @@ export default class ViewBookModal extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>등록일</label>
-                                    {this.props.book.datetime}
+                                    {datetime}
                                 </Form.Field>
                             </Form.Group>
                             <Divider horizontal><Icon color='red' name='heart' /></Divider>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import AppHeader from 'components/appHeader/appHeader';
-import {Home, LoginForm, ManageBookForm, Bookmark} from 'pages';
+import {Home, LoginForm, ManageBookForm, ManageBookmarkForm} from 'pages';
 import {TOKEN_KEY} from "../constants/common";
 
 const App = () => {
@@ -22,7 +22,7 @@ const TopHeaderApp = () => {
             <AppHeader/>
             <Route exact path="/" component={Home}/>
             <Route path="/manage-book-form" component={ManageBookForm}/>
-            <Route path="/bookmark" component={Bookmark} />
+            <Route path="/manage-bookmark-form" component={ManageBookmarkForm} />
         </div>
     )
 }

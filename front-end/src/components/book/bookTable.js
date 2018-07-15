@@ -5,7 +5,7 @@ import Book from 'components/book/book';
 import Pagination from 'components/common/pagination';
 import CreateBookModal from 'components/modals/createBookModal';
 
-import { BOOK_TABLE_LABELS, SORT_OPTIONS, exportOptionKey } from 'constants/common';
+import { BOOK_TABLE_LABELS, SORT_OPTIONS } from 'constants/common';
 
 export default class BookTable extends Component {
     constructor(props) {

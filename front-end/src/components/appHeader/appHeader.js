@@ -9,7 +9,7 @@ const AppHeader = () => {
             <Container>
                 <Menu.Item as={Link} to='/' header>도서 관리 시스템</Menu.Item>
                 <Menu.Item as={Link} to='/manage-book-form'>도서 관리</Menu.Item>
-                <Menu.Item as={Link} to='/bookmark'>북마크</Menu.Item>
+                <Menu.Item as={Link} to='/manage-bookmark-form'>북마크 관리</Menu.Item>
                 <Menu.Item as={Link} to='/login-form' onClick={logout} position='right'>로그아웃</Menu.Item>
             </Container>
         </Menu>

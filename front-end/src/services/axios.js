@@ -47,3 +47,7 @@ export function removeBook(bookIdx, searchApiIdx) {
 export function saveBookmark(bookmark){
     return axios.post(domainContextPath + '/bookmarks', bookmark, {headers: headerConfigLoader()});
 }
+
+export function getBookmarks(){
+    return axios.get(domainContextPath + '/bookmarks', {headers: headerConfigLoader()});
+}

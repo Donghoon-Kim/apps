@@ -1,12 +1,13 @@
 import React from 'react';
 import {Table} from 'semantic-ui-react';
-import BookMarkItem from 'components/bookMark/bookMarkItem';
+import Bookmark from 'components/bookmark/bookmark';
+import './bookmarkTable.css';
 
 import { BOOK_MARK_TABLE_LABELS } from 'constants/common';
 
-const BookMarkTable = (props) => {
+const BookmarkTable = (props) => {
     return (
-        <div className='bookTable'>
+        <div className='bookmarkTable'>
             <Table size='small'>
                 <Table.Header>
                     <Table.Row>
@@ -19,18 +20,18 @@ const BookMarkTable = (props) => {
                 </Table.Header>
                 <Table.Body>
                     {
-                        props.list.length === 0 ? (
+                        props.bookmarks.length === 0 ? (
                             <Table.Row>
                                 <Table.Cell className='emptyCell' colSpan={BOOK_MARK_TABLE_LABELS.length}>
                                     북마크가 없습니다.
                                 </Table.Cell>
                             </Table.Row>
                         ) : (
-                            props.list.map((book, index) => (
-                                <BookMarkItem
+                            props.bookmarks.map((bookmark, index) => (
+                                <Bookmark
                                     key={index}
                                     sequence={index + 1}
-                                    book={book}
+                                    bookmark={bookmark}
                                 />
                             ))
                         )
@@ -41,4 +42,4 @@ const BookMarkTable = (props) => {
     );
 };
 
-export default BookMarkTable;
+export default BookmarkTable;

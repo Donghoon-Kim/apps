@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Header } from 'semantic-ui-react';
+import './manageBookForm.css';
 import SearchInput from 'components/common/searchInput';
 import BookTable from 'components/book/bookTable';
 import * as service from 'services/axios';
 import ViewBookModal from 'components/modals/viewBookModal'
-import { SEARCH_OPTIONS, SORT_OPTIONS, exportOptionKey, errorCallback } from 'constants/common';
+import { SEARCH_OPTIONS, exportOptionKey, errorCallback } from 'constants/common';
 
 export default class manageBookForm extends Component {
     constructor(props) {
@@ -180,8 +181,8 @@ export default class manageBookForm extends Component {
 
         return (
             <div>
-                <Container style={{paddingTop: '4em'}}>
-                    <div style={{width:'70%',margin:'0 auto',paddingBottom: '1em'}}>
+                <Container className='containerWrapper'>
+                    <div className='headerTitle'>
                         <Header as='h1'>도서관리</Header>
                         <p>Kakao 도서 관리 페이지에 오신 것을 환영합니다.</p>
                         <p>이 페이지에서 여러가지 기능을 볼 수 있습니다.</p>
