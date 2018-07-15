@@ -1,7 +1,6 @@
 package com.kb.bookapp.business.service;
 
-import com.kb.bookapp.business.component.RsaTextBCryptPasswordEncoder;
-import com.kb.bookapp.business.component.RsaTextDecoder;
+import com.kb.bookapp.business.component.EncryptComponent.RsaTextBCryptPasswordEncoder;
 import com.kb.bookapp.business.domain.Member;
 import com.kb.bookapp.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;

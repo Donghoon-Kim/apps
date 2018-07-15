@@ -1,6 +1,6 @@
 package com.kb.bookapp.app.configuration;
 
-import com.kb.bookapp.business.component.RsaTextBCryptPasswordEncoder;
+import com.kb.bookapp.business.component.EncryptComponent.RsaTextBCryptPasswordEncoder;
 import com.kb.bookapp.presentation.filter.JWTAuthenticationFilter;
 import com.kb.bookapp.presentation.filter.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;

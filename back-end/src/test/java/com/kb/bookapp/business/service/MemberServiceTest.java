@@ -1,6 +1,6 @@
 package com.kb.bookapp.business.service;
 
-import com.kb.bookapp.business.component.RsaTextBCryptPasswordEncoder;
+import com.kb.bookapp.business.component.EncryptComponent.RsaTextBCryptPasswordEncoder;
 import com.kb.bookapp.business.domain.Member;
 import com.kb.bookapp.repository.MemberRepository;
 import com.kb.bookapp.test.SpringTest;
@@ -12,12 +12,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class MemberServiceTest extends SpringTest {
