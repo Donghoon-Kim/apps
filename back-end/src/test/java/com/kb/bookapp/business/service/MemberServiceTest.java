@@ -1,5 +1,6 @@
 package com.kb.bookapp.business.service;
 
+import com.kb.bookapp.business.component.RsaTextBCryptPasswordEncoder;
 import com.kb.bookapp.business.domain.Member;
 import com.kb.bookapp.repository.MemberRepository;
 import com.kb.bookapp.test.SpringTest;
@@ -25,7 +26,7 @@ public class MemberServiceTest extends SpringTest {
   private MemberRepository memberRepository;
 
   @Mock
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private RsaTextBCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
   @InjectMocks

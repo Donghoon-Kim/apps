@@ -3,7 +3,6 @@ import { Button, Header, Icon, Modal, Form , Input} from 'semantic-ui-react'
 import * as memberController from 'services/memberController';
 import {errorCallback} from "../../constants/common";
 
-
 export default class CreateMemberModal extends Component {
     constructor(props) {
         super(props);
@@ -20,8 +19,8 @@ export default class CreateMemberModal extends Component {
             document.getElementById('joinPasswordConfirm').select();
             return;
         }
-
-        memberController.join(username, password)
+        const ep = this.props.encrypt.encrypt(password);
+        memberController.join(username, ep)
             .then((response) => {
                 alert(username + '님 회원가입이 완료되었습니다.');
                 this.props.handleCrateMemberModalClose();

@@ -1,9 +1,7 @@
 package com.kb.bookapp.business.component.UserApi;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kb.bookapp.business.component.ApiInterface.BookInterface;
 import com.kb.bookapp.business.domain.BookPrimaryInfo;
-import com.kb.bookapp.business.domain.Category;
 import com.kb.bookapp.business.domain.SearchApi;
 import lombok.Setter;
 
@@ -104,7 +102,7 @@ public class UserBook implements BookInterface {
         return new String[0];
     }
 
-    public BookPrimaryInfo getBookPrimaryInfo(){
+    public BookPrimaryInfo getBookPrimaryInfo() {
         return bookPrimaryInfo;
     }
 }

@@ -1,5 +1,6 @@
 package com.kb.bookapp.app.configuration;
 
+import com.kb.bookapp.business.component.RsaTextBCryptPasswordEncoder;
 import com.kb.bookapp.presentation.filter.JWTAuthenticationFilter;
 import com.kb.bookapp.presentation.filter.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Qualifier("memberService")
     private UserDetailsService userDetailsService;
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RsaTextBCryptPasswordEncoder rsaTextBCryptPasswordEncoder;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -34,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/publicKeys").permitAll()
                 .antMatchers(HttpMethod.POST, "/members").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
@@ -45,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(rsaTextBCryptPasswordEncoder);
     }
 
     @Bean

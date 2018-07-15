@@ -39,6 +39,7 @@ const LoginComponent = (props) => (
                     처음 방문하세요? <a href='' onClick={props.handleCrateMemberModalOpen}>회원가입</a><CreateMemberModal
                         isCreateMemberModalOpen={props.isCreateMemberModalOpen}
                         handleCrateMemberModalClose={props.handleCrateMemberModalClose}
+                    encrypt={props.encrypt}
                     />
                 </Message>
             </Grid.Column>

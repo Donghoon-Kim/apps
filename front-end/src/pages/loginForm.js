@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginComponent from 'components/loginForm/loginComponent'
 import * as memberController from 'services/memberController';
+import {pubKeyString} from "../constants/pub.key";
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -9,6 +10,15 @@ export default class LoginForm extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleCrateMemberModalClose = this.handleCrateMemberModalClose.bind(this);
         this.handleCrateMemberModalOpen = this.handleCrateMemberModalOpen.bind(this);
+
+    }
+
+    componentDidMount() {
+        const publicKey = pubKeyString;
+        const JSEncrypt = require('node-jsencrypt');
+        let encrypt = new JSEncrypt();
+        this.encrypt = encrypt;
+        encrypt.setPublicKey(publicKey);
     }
 
     handleClick(e){
@@ -31,7 +41,9 @@ export default class LoginForm extends Component {
             return;
         }
 
-        memberController.login(username, password)
+        
+        const ep = this.encrypt.encrypt(password);
+        memberController.login(username, ep)
             .then((response) => {
                 localStorage.setItem('bookapp_token', response.headers.authorization);
                 this.props.history.push("/");
@@ -56,6 +68,7 @@ export default class LoginForm extends Component {
                 isCreateMemberModalOpen={this.state.isCreateMemberModalOpen}
                 handleCrateMemberModalOpen={this.handleCrateMemberModalOpen}
                 handleCrateMemberModalClose={this.handleCrateMemberModalClose}
+                encrypt={this.encrypt}
             />
         )
     }

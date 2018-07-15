@@ -51,3 +51,7 @@ export function saveBookmark(bookmark){
 export function getBookmarks(){
     return axios.get(domainContextPath + '/bookmarks', {headers: headerConfigLoader()});
 }
+
+export function getPublicKey(){
+    return axios.get(domainContextPath + '/publicKeys');
+}
