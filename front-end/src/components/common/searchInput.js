@@ -1,5 +1,6 @@
 import React from 'react'
-import { Select, Input, Divider } from 'semantic-ui-react'
+import './searchInput.css'
+import { Select, Input, Divider, Button, Icon } from 'semantic-ui-react'
 
 const SearchInput = (props) => {
     const queryHistories = props.queryHistories.map(function(item, index){
@@ -8,14 +9,16 @@ const SearchInput = (props) => {
 
     return (
         <div className='inputWrapper'>
-            <Input type='text' placeholder='Search...' action>
+            <Input type='text' placeholder='Search...' action icon='search'>
+                <Select compact options={props.options} defaultValue='전체' />
                 <input id='searchQueryInput'
                     placeholder='보고 싶은 책을 찾아보세요'
                     list='history'
                     onKeyPress={props.onKeyPress}
                 />
-                <Select compact options={props.options} defaultValue='전체' />
-                <Select compact options={props.options} defaultValue='전체' />
+                <Button color='teal' onClick={() => alert()}>
+                    <Icon name='search'/> 검색
+                </Button>
             </Input>
             <datalist id='history'>
                 {queryHistories}

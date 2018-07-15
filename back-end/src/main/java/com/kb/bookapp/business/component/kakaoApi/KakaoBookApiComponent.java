@@ -43,7 +43,7 @@ public class KakaoBookApiComponent implements ComponentInterface {
                 .queryParam("page", searchCondition.getPage())
                 .queryParam("size", searchCondition.getSize())
                 .queryParam("target", searchCondition.getTarget())
-                .queryParam("sort", "???");
+                .queryParam("sort", searchCondition.getSort());
 
         URI uri = uriBuilder.build().encode().toUri();
         HttpEntity<Object> entity = new HttpEntity<>(null, getKakaoRequestHeader());

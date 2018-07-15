@@ -35,11 +35,14 @@ public class BookRepositoryImpl extends QuerydslRepositorySupport implements Cus
             default:
                 query = query.orderBy(userBook.accuracy.desc());
                 break;
-            case "recency":
+            case "regiDatetime":
                 query = query.orderBy(userBook.bookPrimaryInfo().regiDatetime.desc());
                 break;
             case "sales":
                 query = query.orderBy(userBook.sales.desc());
+                break;
+            case "title":
+                query = query.orderBy(userBook.bookPrimaryInfo().title.asc());
                 break;
         }
         switch (target) {

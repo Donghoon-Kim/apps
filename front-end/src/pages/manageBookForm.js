@@ -4,25 +4,7 @@ import SearchInput from 'components/common/searchInput';
 import BookTable from 'components/book/bookTable';
 import * as service from 'services/axios';
 import ViewBookModal from 'components/modals/viewBookModal'
-
-const options = [
-    {key: '', text: '정렬안함', value: 'all'},
-    {key: 'isbn', text: '책이름순', value: 'isbn'},
-    {key: 'keyword', text: '입력시간순', value: 'keyword'},
-    {key: 'contents', text: '목차', value: 'contents'},
-    {key: 'overview', text: '책소개', value: 'overview'},
-    {key: 'publisher', text: '출판사', value: 'publisher'},
-];
-
-const sortOption = [
-    {key: 'all', text: '전체', value: 'all'},
-    {key: 'isbn', text: 'isbn', value: 'isbn'},
-    {key: 'keyword', text: '주제어', value: 'keyword'},
-    {key: 'contents', text: '목차', value: 'contents'},
-    {key: 'contents', text: '목차', value: 'contents'},
-]
-
-import { SEARCH_OPTIONS } from 'constants/common';
+import { SEARCH_OPTIONS, SORT_OPTIONS, exportOptionKey } from 'constants/common';
 
 export default class manageBookForm extends Component {
     constructor(props) {
@@ -58,11 +40,11 @@ export default class manageBookForm extends Component {
             isViewBookModalOpen: false,
             removeTargetApiIdx: 0,
         });
-        let currentPage = this.state.books
-            .filter((item) => item.searchCondition.apiIdx === targetApiIdx)[0]
-            .searchCondition.page;
-
-        this.movingPage(targetApiIdx, currentPage);
+        const bookResult = this.state.books
+            .filter((item) => item.searchCondition.apiIdx === targetApiIdx)[0];
+        const currentPage = bookResult.searchCondition.page;
+        const currentSort = bookResult.searchCondition.sort;
+        this.movingPage(targetApiIdx, currentPage, currentSort);
     }
 
     handleViewBookModalOpen(e, book, searchApiIdx) {
@@ -126,7 +108,8 @@ export default class manageBookForm extends Component {
         }
 
         let targetText = document.querySelectorAll(".inputWrapper .menu.transition .selected .text")[0].innerText;
-        let target = SEARCH_OPTIONS.filter((item) => item.text === targetText)[0].key;
+        let target = exportOptionKey(SEARCH_OPTIONS, targetText);
+
 
         return {
             query: query,
@@ -134,12 +117,12 @@ export default class manageBookForm extends Component {
         }
     }
 
-    movingPage = (apiIdx, page) => {
+    movingPage = (apiIdx, page, sort) => {
         let currentSearchCondition = this.state.books
             .filter((item) => item.searchCondition.apiIdx === apiIdx)[0]
             .searchCondition;
 
-        service.getBooks(currentSearchCondition.query, page, currentSearchCondition.target, apiIdx)
+        service.getBooks(currentSearchCondition.query, page, currentSearchCondition.target, sort, apiIdx)
             .then((response) => {
                 let searchBookResult = response.data;
                 let booksNoneSorted = this.state.books
@@ -165,7 +148,7 @@ export default class manageBookForm extends Component {
         }
 
         const promises = this.state.searchApis.map((searchApi) => {
-            return service.getBooks(searchCondition.query, 1, searchCondition.target, searchApi.searchApiIdx);
+            return service.getBooks(searchCondition.query, 1, searchCondition.target, '', searchApi.searchApiIdx);
         });
         const bookApiList = await Promise.all(promises);
         this.setState({books: bookApiList.map((bookApiResult) => bookApiResult.data)});

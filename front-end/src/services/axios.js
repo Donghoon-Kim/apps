@@ -11,12 +11,13 @@ export function getSearchApi() {
     return axios.get(domainContextPath + '/searchApis', {headers: headerConfigLoader()});
 }
 
-export function getBooks(query, page, target, searchApiIdx) {
+export function getBooks(query, page, target, sort, searchApiIdx) {
     return axios.get(domainContextPath + '/searchApis/'+searchApiIdx+'/books', {
         params: { // query string
             query: query,
             page: page,
             target: target,
+            sort: sort
         },
         headers: headerConfigLoader()
     });

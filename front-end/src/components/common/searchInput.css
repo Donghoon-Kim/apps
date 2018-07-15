@@ -1,0 +1,9 @@
+.inputWrapper{
+    text-align:center
+}
+.inputWrapper .input{
+    width: 70%;
+}
+.inputWrapper .selection{
+    width: 100px;
+}

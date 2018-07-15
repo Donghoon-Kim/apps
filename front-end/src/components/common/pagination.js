@@ -1,5 +1,6 @@
 import React from 'react';
 import {Icon, Menu} from 'semantic-ui-react'
+import './pagination.css'
 
 const pageUnitCount = 5;
 const Pagination = (props) => {
@@ -26,19 +27,21 @@ const Pagination = (props) => {
         });
 
     return (
-        <Menu floated='right' pagination>
-            {needFirstPageMovingUnit
-                ? <Menu.Item as='a' icon onClick={() => props.onPageClick(props.searchApiIdx, firstUnitPage)}>
-                    <Icon name='chevron left'/>
-                </Menu.Item>
-            : ''}
-            {pageUIs}
-            {needLastPageMovingUnit
-            ? <Menu.Item as='a' icon onClick={() => props.onPageClick(props.searchApiIdx, lastUnitPage)}>
-                    <Icon name='chevron right'/>
-                </Menu.Item>
-            : ''}
-        </Menu>
+        <div className='wrapperPagination'>
+            <Menu pagination>
+                {needFirstPageMovingUnit
+                    ? <Menu.Item as='a' icon onClick={() => props.onPageClick(props.searchApiIdx, firstUnitPage)}>
+                        <Icon name='chevron left'/>
+                    </Menu.Item>
+                : ''}
+                {pageUIs}
+                {needLastPageMovingUnit
+                ? <Menu.Item as='a' icon onClick={() => props.onPageClick(props.searchApiIdx, lastUnitPage)}>
+                        <Icon name='chevron right'/>
+                    </Menu.Item>
+                : ''}
+            </Menu>
+        </div>
     );
 };
 
