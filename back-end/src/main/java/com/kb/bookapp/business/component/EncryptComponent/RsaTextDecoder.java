@@ -17,9 +17,9 @@ import java.util.Base64;
 
 @Component
 public class RsaTextDecoder {
-    private final static String PKCS1_PREFIX_STRING = "-----BEGIN RSA PRIVATE KEY-----\r\n";
+    private final static String PKCS1_PREFIX_STRING = "-----BEGIN RSA PRIVATE KEY-----" + System.getProperty("line.separator");
     private final static String PKCS1_SUFFIX_STRING = "-----END RSA PRIVATE KEY-----";
-    private final static String PKCS1_DELIM = "\r\n";
+    private final static String PKCS1_DELIM = System.getProperty("line.separator");
     private final static String EMPTY_STRING = "";
     private final static String KEY_FILE = "/server.key.pem";
     private final static short KEY_SIZE = 1024;
@@ -76,6 +76,7 @@ public class RsaTextDecoder {
             byte[] hex = Base64.getDecoder().decode(text);
             resultString = new String(cipher.doFinal(hex));
         } catch (Exception e) {
+            e.printStackTrace(System.out);
             throw new RuntimeException("복호화 도중 에러 발생");
         }
 
