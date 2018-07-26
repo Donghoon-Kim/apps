@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.kb.bookapp.app.constant.Constants.*;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
 
@@ -48,12 +50,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
+
+
         String token = Jwts.builder()
                 .setSubject(((User) auth.getPrincipal()).getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(SignatureAlgorithm.HS512, "sign_key")
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRE_MILLISECOND))
+                .signWith(SignatureAlgorithm.HS512, TOKEN_SIGN_STRING)
                 .compact();
-        res.addHeader("Access-Control-Expose-Headers","authorization");
-        res.addHeader("authorization", "Bearer " + token);
+        res.addHeader("Access-Control-Expose-Headers", TOKEN_HEADER);
+
+        res.addHeader(TOKEN_HEADER, TOKEN_PREFIX + token);
     }
 }

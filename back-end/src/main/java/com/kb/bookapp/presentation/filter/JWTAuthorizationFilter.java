@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.kb.bookapp.app.constant.Constants.TOKEN_HEADER;
+import static com.kb.bookapp.app.constant.Constants.TOKEN_PREFIX;
+import static com.kb.bookapp.app.constant.Constants.TOKEN_SIGN_STRING;
+
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthorizationFilter(AuthenticationManager authManager) {
@@ -23,9 +27,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader("authorization");
+        String header = req.getHeader(TOKEN_HEADER);
 
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(req, res);
             return;
         }
@@ -37,12 +41,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader("authorization");
+        String token = request.getHeader(TOKEN_HEADER);
         if (token != null) {
             // parse the token.
             String user = Jwts.parser()
-                    .setSigningKey("sign_key")
-                    .parseClaimsJws(token.replace("Bearer ", ""))
+                    .setSigningKey(TOKEN_SIGN_STRING)
+                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
 

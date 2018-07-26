@@ -15,27 +15,12 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static com.kb.bookapp.app.constant.Constants.*;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toList;
 
 @Configuration
 public class APIClientConfiguration {
-
-    @Bean
-    public RestTemplate getRestTemplate() {
-        HttpClient httpClient = HttpClientBuilder.create()
-                .setMaxConnTotal(100)
-                .setMaxConnPerRoute(5)
-                .build();
-
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setReadTimeout(5000);
-        factory.setConnectTimeout(3000);
-        factory.setHttpClient(httpClient);
-
-        return new RestTemplate(factory);
-    }
-
     @Autowired
     private ComponentInterface[] componentInterfaces;
 
@@ -60,5 +45,20 @@ public class APIClientConfiguration {
         }
 
         return apiMap;
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        HttpClient httpClient = HttpClientBuilder.create()
+                .setMaxConnTotal(HTTP_CLIENT_MAX_CONN_TOTAL)
+                .setMaxConnPerRoute(HTTP_CLIENT_MAX_CONN_PER_ROUTE)
+                .build();
+
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setReadTimeout(HTTP_CLIENT_FACTORY_READ_TIMEOUT);
+        factory.setConnectTimeout(HTTP_CLINET_FACTORY_CONN_TIMEOUT);
+        factory.setHttpClient(httpClient);
+
+        return new RestTemplate(factory);
     }
 }
