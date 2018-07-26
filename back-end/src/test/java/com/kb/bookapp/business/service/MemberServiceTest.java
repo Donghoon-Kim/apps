@@ -20,106 +20,106 @@ import static org.mockito.Mockito.when;
 
 public class MemberServiceTest extends SpringTest {
 
-  @Mock
-  private MemberRepository memberRepository;
+    @Mock
+    private MemberRepository memberRepository;
 
-  @Mock
-  private RsaTextBCryptPasswordEncoder bCryptPasswordEncoder;
+    @Mock
+    private RsaTextBCryptPasswordEncoder bCryptPasswordEncoder;
 
-  @Autowired
-  @InjectMocks
-  private MemberService service;
+    @Autowired
+    @InjectMocks
+    private MemberService service;
 
-  @Before
-  public void setUp() {
-    super.setUp();
-    MockitoAnnotations.initMocks(this);
-  }
+    @Before
+    public void setUp() {
+        super.setUp();
+        MockitoAnnotations.initMocks(this);
+    }
 
-  @Test
-  public void testCreateMemberSuccess() throws Exception {
-    // given
-    final String encoded = "djienfcxl";
-    final Member member = new Member();
-    member.setUsername("test_new_member");
-    member.setPassword("test123");
-    final Member saved = new Member();
-    saved.setUsername(member.getUsername());
-    saved.setPassword(encoded);
+    @Test
+    public void testCreateMemberSuccess() throws Exception {
+        // given
+        final String encoded = "djienfcxl";
+        final Member member = new Member();
+        member.setUsername("test_new_member");
+        member.setPassword("test123");
+        final Member saved = new Member();
+        saved.setUsername(member.getUsername());
+        saved.setPassword(encoded);
 
-    when(memberRepository.findByUsername(any(String.class))).thenReturn(null);
-    when(bCryptPasswordEncoder.encode(any(CharSequence.class))).thenReturn(encoded);
-    when(memberRepository.save(any(Member.class))).thenReturn(saved);
+        when(memberRepository.findByUsername(any(String.class))).thenReturn(null);
+        when(bCryptPasswordEncoder.encode(any(CharSequence.class))).thenReturn(encoded);
+        when(memberRepository.save(any(Member.class))).thenReturn(saved);
 
-    // when
-    Member result = service.createMember(member);
+        // when
+        Member result = service.createMember(member);
 
-    //then
-    assertThat(result.getUsername(), is(member.getUsername()));
-    assertThat(result.getPassword(), is(encoded));
-  }
+        //then
+        assertThat(result.getUsername(), is(member.getUsername()));
+        assertThat(result.getPassword(), is(encoded));
+    }
 
-  @Test(expected = RuntimeException.class)
-  public void testCreateMemberFailBecauseMemberExist() throws Exception {
-    final Member member = new Member();
-    member.setUsername("test_new_member");
-    member.setPassword("test123");
+    @Test(expected = RuntimeException.class)
+    public void testCreateMemberFailBecauseMemberExist() throws Exception {
+        final Member member = new Member();
+        member.setUsername("test_new_member");
+        member.setPassword("test123");
 
-    when(memberRepository.findByUsername(any(String.class))).thenReturn(member);
+        when(memberRepository.findByUsername(any(String.class))).thenReturn(member);
 
-    // when
-    service.createMember(member);
-  }
+        // when
+        service.createMember(member);
+    }
 
-  @Test
-  public void testLoadUserByUsernameSuccess() throws Exception {
-    // given
-    final Member member = new Member();
-    member.setUsername("test_member");
-    member.setPassword("test123");
+    @Test
+    public void testLoadUserByUsernameSuccess() throws Exception {
+        // given
+        final Member member = new Member();
+        member.setUsername("test_member");
+        member.setPassword("test123");
 
-    when(memberRepository.findByUsername(any(String.class))).thenReturn(member);
+        when(memberRepository.findByUsername(any(String.class))).thenReturn(member);
 
-    // when
-    UserDetails user = service.loadUserByUsername(member.getUsername());
+        // when
+        UserDetails user = service.loadUserByUsername(member.getUsername());
 
-    // then
-    assertThat(user.getUsername(), is(member.getUsername()));
-    assertThat(user.getPassword(), is(member.getPassword()));
-  }
+        // then
+        assertThat(user.getUsername(), is(member.getUsername()));
+        assertThat(user.getPassword(), is(member.getPassword()));
+    }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testLoadUserByUserNameFailBecauseUsernameIsEmpty() throws Exception {
-    // given
-    final String username = "";
+    @Test(expected = IllegalArgumentException.class)
+    public void testLoadUserByUserNameFailBecauseUsernameIsEmpty() throws Exception {
+        // given
+        final String username = "";
 
-    // when
-    service.loadUserByUsername(username);
+        // when
+        service.loadUserByUsername(username);
 
-    //then
-  }
+        //then
+    }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testLoadUserByUserNameFailBecauseUsernameIsNull() throws Exception {
-    // given
-    final String username = null;
+    @Test(expected = IllegalArgumentException.class)
+    public void testLoadUserByUserNameFailBecauseUsernameIsNull() throws Exception {
+        // given
+        final String username = null;
 
-    // when
-    service.loadUserByUsername(username);
+        // when
+        service.loadUserByUsername(username);
 
-    //then
-  }
+        //then
+    }
 
-  @Test(expected = UsernameNotFoundException.class)
-  public void testLoadUserByUserNameFailBecauseUsernameIsNotExist() throws Exception {
-    // given
-    final String username = "test_member";
+    @Test(expected = UsernameNotFoundException.class)
+    public void testLoadUserByUserNameFailBecauseUsernameIsNotExist() throws Exception {
+        // given
+        final String username = "test_member";
 
-    when(memberRepository.findByUsername(any(String.class))).thenReturn(null);
+        when(memberRepository.findByUsername(any(String.class))).thenReturn(null);
 
-    // when
-    service.loadUserByUsername(username);
+        // when
+        service.loadUserByUsername(username);
 
-    // then
-  }
+        // then
+    }
 }

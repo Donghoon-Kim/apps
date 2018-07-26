@@ -43,9 +43,7 @@ public class UserBookApiComponent implements ComponentInterface {
         userBook.getBookPrimaryInfo().setRegiDatetime(LocalDateTime.now());
         userBook.setSales((int) Math.random());
         userBook.setAccuracy((int) Math.random());
-        bookRepository.save(userBook);
-
-        return userBook;
+        return bookRepository.save(userBook);
     }
 
     @Override

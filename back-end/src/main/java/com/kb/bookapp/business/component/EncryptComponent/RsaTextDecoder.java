@@ -17,9 +17,9 @@ import java.util.Base64;
 
 @Component
 public class RsaTextDecoder {
-    private final static String PKCS1_PREFIX_STRING = "-----BEGIN RSA PRIVATE KEY-----" + System.getProperty("line.separator");
-    private final static String PKCS1_SUFFIX_STRING = "-----END RSA PRIVATE KEY-----";
     private final static String PKCS1_DELIM = System.getProperty("line.separator");
+    private final static String PKCS1_PREFIX_STRING = "-----BEGIN RSA PRIVATE KEY-----" + PKCS1_DELIM;
+    private final static String PKCS1_SUFFIX_STRING = "-----END RSA PRIVATE KEY-----";
     private final static String EMPTY_STRING = "";
     private final static String KEY_FILE = "/server.key.pem";
     private final static short KEY_SIZE = 1024;
@@ -81,5 +81,14 @@ public class RsaTextDecoder {
         }
 
         return resultString;
+    }
+
+    public static void main(String[] args){
+        String text = "QaSYezWmJ3yXgNsKVzlmDf/6EY6e0pSANUQ/u2rtRuRBPAPb3ScZnxjqQVBCwt8vIzRNN9TB1bcVloMQsAWrw3Fx4GxeswNdTqyc8IhyZYkYFsmTmkEeA9KhwnPQnq7m4zstd2Oj8aSgQQ8ptl8XuQkAUHeOSoG/bqUZf54kP8k=";
+        String text2 = "Drt8GKkCyRDtzeFfhJ2cptUq9KQShAap5HVoSsq4cQs1QsyDI13u0fVbm9U1/Xh+3mrUDZUlI25HMKOETgFteuY65f1s94Vim7hvyYXIdwYlVckeSN+w2YJHPFhQfqIdcKpPtfHy8j74UWA5n0qPWphokjVLRSPkpAjMfs9htns=";
+        String decode = new RsaTextDecoder().decode(text);
+        String decode2 = new RsaTextDecoder().decode(text2);
+        System.out.println(decode);
+        System.out.println(decode2);
     }
 }
